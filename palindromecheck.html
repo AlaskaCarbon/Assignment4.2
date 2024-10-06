@@ -3,90 +3,109 @@
 <head>
     <title>Palindrome Checker</title>
 
+    <!-- CSS styles all together instead of separate file -->
     <style>
         /* Style the body */
         body {
-            background-color: #f0f8ff; /* AliceBlue background */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa; /* Light Cyan background */
+            font-family: 'Arial', sans-serif;
             text-align: center; /* Center-align text */
+            margin-top: 50px;
         }
 
-        /* Style the input field */
-        #userInput {
-            width: 300px;
-            padding: 10px;
-            margin: 20px;
+        /* Style the image */
+        img {
+            margin-bottom: 20px;
+            width: 200px;
+            height: auto;
         }
 
-        /*Style the button */
+        /* Style the result div */
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Style the button */
         button {
             padding: 10px 20px;
             font-size: 16px;
-        }
-
-        /*Style the result div */
-        #result {
             margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-<!-- Audio Element -->
 
+    <!-- Palindrome Image -->
+    <img src="palindrome.jpg" alt="Palindrome Image">
 
-<audio id="palindromeAudio" src="far.mp3" preload="auto"></audio>
+    <!-- Div to display messages -->
+    <div id="result">Welcome to the Palindrome Checker!</div>
 
+    <!-- Button to start the palindrome checking process -->
+    <button onclick="startPalindromeChecker()">Start Checking</button>
 
-    <img src="palindrome.jpg" alt="Palindrome" width="200">
-
-    <!--Input field for the possible palindrome -->
-    <input type="text" id="userInput" placeholder="Enter a word or phrase">
-
-    <!-- Button to check palindrome -->
-    <button onclick="checkPalindrome()">Check</button>
-
-    <!-- Div to display the result -->
-    <div id="result"></div>
+    <!-- Audio element -->
+    <!-- 'far.mp3' will play when the Start Checking button is clicked -->
+    <audio id="startAudio" src="far.mp3"></audio>
 
     <!-- JavaScript starts here -->
     <script>
-
         // Get the audio element
-let palindromeAudio = document.getElementById('palindromeAudio');
+        let startAudio = document.getElementById('startAudio'); // Sound when starting the checker
 
-function checkPalindrome() {
-    // Play the audio
-    palindromeAudio.play();
-}
-    // Input for the possible palindrome
-    let userInput = document.getElementById('userInput').value;
-    // Rest of your existing code...
+        // Function to start the palindrome checking process
+        function startPalindromeChecker() {
+            // Play the start audio
+            startAudio.play();
 
- 
-        function checkPalindrome() {
-            // Input for the possible palindrome
-            let userInput = document.getElementById('userInput').value;
+            // Initialize a variable to control the loop
+            let continueChecking = true;
 
-            // Check if input is empty
-            if (userInput.length === 0) {
-                document.getElementById('result').innerText = "Enter word or phrase to check palindromism";
-                return;
+            // Start a loop to keep prompting the user
+            while (continueChecking) {
+                // Prompt the user for input
+                let userInput = prompt("Enter a word or phrase to check if it's a palindrome:");
+
+                // Check if the user clicked 'Cancel' or entered nothing
+                if (userInput === null) {
+                    // User clicked 'Cancel', exit the loop
+                    break;
+                } else if (userInput.trim() === "") {
+                    // User entered an empty string
+                    alert("Please enter a valid word or phrase.");
+                    // Continue to the next iteration of the loop
+                    continue;
+                }
+
+                // Remove spaces and convert to lowercase
+                let processedInput = userInput.replace(/\s+/g, '').toLowerCase();
+
+                // Reverse the processed input
+                let reversedInput = processedInput.split('').reverse().join('');
+
+                // Check if the processed input matches the reversed input
+                if (processedInput === reversedInput) {
+                    // Notify the user that it's a palindrome
+                    alert(`"${userInput}" is a palindrome!`);
+                } else {
+                    // Notify the user that it's not a palindrome
+                    alert(`"${userInput}" is not a palindrome.`);
+                }
+
+                // Ask the user if they want to check another word
+                let userResponse = confirm("Do you want to check another word or phrase?");
+
+                // If the user clicks 'Cancel', set continueChecking to false to exit the loop
+                if (!userResponse) {
+                    continueChecking = false;
+                }
             }
 
-            // Remove spaces and convert to lowercase
-            let processedInput = userInput.replace(/\s+/g, '').toLowerCase();
-
-            // Reverse the processed input
-            let reversedInput = processedInput.split('').reverse().join('');
-
-            // Comment: Check if the input is a palindrome and output the palindromism (greek suffix work?)
-            if (processedInput === reversedInput) {
-                document.getElementById('result').innerText = `"${userInput}" is a palindrome!`;
-            } else {
-                document.getElementById('result').innerText = `"${userInput}" is not a palindrome.`;
-            }
+            // Update the result div with a thank-you message
+            document.getElementById('result').innerText = "Thank you for using the Palindrome Checker!";
         }
     </script>
 </body>
