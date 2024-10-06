@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Palindrome Checker</title>
+
+    <style>
+        /* Style the body */
+        body {
+            background-color: #f0f8ff; /* AliceBlue background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center; /* Center-align text */
+        }
+
+        /* Style the input field */
+        #userInput {
+            width: 300px;
+            padding: 10px;
+            margin: 20px;
+        }
+
+        /*Style the button */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        /*Style the result div */
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<!-- Audio Element -->
+
+
+<audio id="palindromeAudio" src="far.mp3" preload="auto"></audio>
+
+
+    <img src="palindrome.jpg" alt="Palindrome" width="200">
+
+    <!--Input field for the possible palindrome -->
+    <input type="text" id="userInput" placeholder="Enter a word or phrase">
+
+    <!-- Button to check palindrome -->
+    <button onclick="checkPalindrome()">Check</button>
+
+    <!-- Div to display the result -->
+    <div id="result"></div>
+
+    <!-- JavaScript starts here -->
+    <script>
+
+        // Get the audio element
+let palindromeAudio = document.getElementById('palindromeAudio');
+
+function checkPalindrome() {
+    // Play the audio
+    palindromeAudio.play();
+}
+    // Input for the possible palindrome
+    let userInput = document.getElementById('userInput').value;
+    // Rest of your existing code...
+
+ 
+        function checkPalindrome() {
+            // Input for the possible palindrome
+            let userInput = document.getElementById('userInput').value;
+
+            // Check if input is empty
+            if (userInput.length === 0) {
+                document.getElementById('result').innerText = "Enter word or phrase to check palindromism";
+                return;
+            }
+
+            // Remove spaces and convert to lowercase
+            let processedInput = userInput.replace(/\s+/g, '').toLowerCase();
+
+            // Reverse the processed input
+            let reversedInput = processedInput.split('').reverse().join('');
+
+            // Comment: Check if the input is a palindrome and output the palindromism (greek suffix work?)
+            if (processedInput === reversedInput) {
+                document.getElementById('result').innerText = `"${userInput}" is a palindrome!`;
+            } else {
+                document.getElementById('result').innerText = `"${userInput}" is not a palindrome.`;
+            }
+        }
+    </script>
+</body>
+</html>
